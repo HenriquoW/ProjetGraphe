@@ -6,11 +6,18 @@
 package projet;
 
 /**
- *
+ * Interface des algos de colorations
  * @author Thomas
  */
 public interface IColoration {
+    
+    public int getCoulMax();
+    
+    public int[] getCouleur();
+    
     public void algo() throws Exception;
     
-    public void result();
+    public boolean result();
+    
+    public int getEquitable();
 }

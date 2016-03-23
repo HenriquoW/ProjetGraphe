@@ -29,5 +29,5 @@ public class Graphe {
                 matrice[j][i] = b;
             }        
         } 
-    }
+    }    
 }

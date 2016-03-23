@@ -6,7 +6,7 @@
 package projet;
 
 /**
- *
+ *  classe mère des algos de coloration
  * @author Thomas
  */
 public abstract class Coloration implements IColoration{
@@ -24,19 +24,51 @@ public abstract class Coloration implements IColoration{
         this.saturation = new int[s];
     }
     
+    @Override
+    public int getCoulMax(){
+        return coulMax;
+    }
+    
+    @Override
+    public int[] getCouleur() {
+        return couleur;
+    }
+    
+    @Override
     public abstract void algo() throws Exception;
     
-    public void result(){
-        System.out.println("MATRICE");
+    @Override
+    public boolean result(){//Fonction de vérification
+        boolean fonctionne = true;
+        loop1:
         for (int i = 0; i < matrice.length; i++) {
            for (int j = 0; j < matrice.length; j++) {
-               System.out.println(i + " "+j+" "+matrice[i][j]);
+               if(matrice[i][j])//Si il y a une arrète
+                    if(couleur[i]==couleur[j]) {//Et que les deux points sont de la même couleur
+                       fonctionne = false; //alors l'algo ne fonctionne pas
+                       break loop1; //et on quitte loop1(la première boucle)
+                    }
            }
         }
-        System.out.println("COULEUR");
-        for (int i = 0; i < couleur.length; i++) {
-            System.out.println(i+" "+couleur[i]);
+        return fonctionne;
+    }
+    
+    @Override
+    public int getEquitable(){
+        int[] nombre = new int [coulMax];
+        for (int i = 0; i < couleur.length; i++) {//On compte le nombre d'apparition de chaque couleur
+            nombre[couleur[i]-1]++; //Les couleurs commence à 1 il faut donc soustraire 1 pour coller à l'indice du tableau  
         }
-  
+        int min = 99999;
+        int max = -1;
+        for (int i = 0; i < nombre.length; i++) {//On parcour le tableau
+            if(nombre[i]>max){//et on cherche la couleur qui apparrait le plus de fois
+                max = nombre[i];
+            }
+            if(nombre[i]<min){//Et celle qui apparrait le moin de fois
+                min = nombre[i];
+            } 
+        }
+        return max - min;//Et on retourne le degré d'equitabilité
     }
 }

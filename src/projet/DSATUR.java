@@ -6,9 +6,9 @@ import java.util.ArrayList;
  *
  * @author Thomas²
  */
-public class DSATUR extends Coloration implements IColoration{
+public class Dsatur extends Coloration implements IColoration{
     
-    public DSATUR(int s, int p){
+    public Dsatur(int s, int p){
         super(s,p);
     }
     
@@ -21,11 +21,11 @@ public class DSATUR extends Coloration implements IColoration{
         }
     }
     
-    private boolean asColor(int i) {
+    protected boolean asColor(int i) {
         return (this.couleur[i]>0);//Si la couleur du sommet i et > 0 alors il est colorié
     }
     
-    private void initSat(){
+    protected void initSat(){
         this.saturation = new int[g.getSommet()]; //On réinitialise le tableau de saturation
         for (int i = 0; i < matrice.length; i++) { 
             if(!this.asColor(i)){//Si le sommet i et colorié -> calcul inutile on laisse la saturation à 0
@@ -40,7 +40,7 @@ public class DSATUR extends Coloration implements IColoration{
         }
     }
     
-    private int getSatMax() throws Exception{
+    protected int getSatMax() throws Exception{
         int satMax = -1;
         // on récupère la saturation maximum
         for (int i = 0; i < saturation.length; i++) {
@@ -59,7 +59,7 @@ public class DSATUR extends Coloration implements IColoration{
             throw new Exception("nombre sommet incorrecte fonction : getSatMax classe : DSATUR");
     }
     
-    private int getDegreMax(ArrayList<Integer> l) throws Exception{
+    protected int getDegreMax(ArrayList<Integer> l) throws Exception{
         int[] degre = new int[l.size()];//Initialisation du tableau de stockage du degré des sommets
         for (int i = 0; i < l.size(); i++) {
             for (int j = 0; j < matrice.length; j++) {
@@ -81,7 +81,7 @@ public class DSATUR extends Coloration implements IColoration{
             throw new Exception("rang incorrecte fonction : getDegreMax classe : DSATUR");
     }
     
-    private ArrayList<Integer> getSommets(int satMax){
+    protected ArrayList<Integer> getSommets(int satMax){
         ArrayList<Integer> l = new ArrayList();
         for (int i = 0; i < saturation.length; i++) {
             if(saturation[i] == satMax && couleur[i]==0){/*Si le sommet i a la saturation maximal 
@@ -92,7 +92,9 @@ public class DSATUR extends Coloration implements IColoration{
         return l;
     }
     
-    private void setColor(int s) {
+    protected void setColor(int s) throws Exception{ /*throws exception inutile ici mais 
+                                                    utile pour la surcharge de la méthode 
+                                                    dans DsaturModifie */
         boolean color = false;
         boolean exist;
         for (int i = 1; i < coulMax+1 ; i++) {/*On parcours toute les couleurs existante 
@@ -104,6 +106,7 @@ public class DSATUR extends Coloration implements IColoration{
                 if(matrice[s][j])
                     if(couleur[j]== i){
                         exist = true;
+                        break;
                     }                
             }    
             if(!exist) {//Si la couleur n'a pas été trouvée  on l'affecte au sommet s
@@ -118,7 +121,7 @@ public class DSATUR extends Coloration implements IColoration{
         }
     }
     
-    private boolean isEnd(){
+    protected boolean isEnd(){
         boolean end = true;
         for (int i = 0; i < couleur.length; i++) {
             if(couleur[i]==0){//Si un sommet n'est pas colorié alors l'algorithme n'est pas fini
