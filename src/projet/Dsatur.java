@@ -1,6 +1,7 @@
 package projet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -44,12 +45,11 @@ public class Dsatur extends Coloration implements IColoration{
         int satMax = -1;
         // on récupère la saturation maximum
         for (int i = 0; i < saturation.length; i++) {
-            if(saturation[i]>satMax) {
+            if(saturation[i]>satMax && couleur[i]==0) {
                 satMax = saturation[i];
             }
         }
         ArrayList<Integer> l = getSommets(satMax); // puis on liste tout les sommets qui ont cette saturation
-       
         if(l.size() ==1)//Si il n'y en a qu'un on le retourne
             return l.get(0);
         else if(l.size()>1){//Sinon on récupère le sommet avec le degré maximum

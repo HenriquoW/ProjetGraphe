@@ -38,11 +38,12 @@ public abstract class Coloration implements IColoration{
     public abstract void algo() throws Exception;
     
     @Override
-    public boolean result(){//Fonction de vérification
+    public boolean verification(){//Fonction de vérification
         boolean fonctionne = true;
         loop1:
-        for (int i = 0; i < matrice.length; i++) {
-           for (int j = 0; j < matrice.length; j++) {
+        for (int i = 0; i < matrice.length-1; i++) {//On parcours la première dimension de la matrice
+           for (int j = i+1; j < matrice.length; j++) {/* Puis la seconde dimension à partir de i+1
+                                                        (les arretes présente avant i+1 aurons été testées précédement*/
                if(matrice[i][j])//Si il y a une arrète
                     if(couleur[i]==couleur[j]) {//Et que les deux points sont de la même couleur
                        fonctionne = false; //alors l'algo ne fonctionne pas

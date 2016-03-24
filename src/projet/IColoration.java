@@ -17,7 +17,7 @@ public interface IColoration {
     
     public void algo() throws Exception;
     
-    public boolean result();
+    public boolean verification();
     
     public int getEquitable();
 }
